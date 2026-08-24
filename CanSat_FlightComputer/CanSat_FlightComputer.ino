@@ -169,6 +169,9 @@ unsigned long lastStateSaveMs = 0;
 unsigned long lastMicros = 0;
 
 bool resumedFlight = false;
+int TELEM_INTERVAL_MS = TELEM_INTERVAL_MS_Flight;
+
+bool ARMED = false
 
 // =============================================================================
 // CORE 0 SETUP: sensors, integration, SD/LittleFS, flight logic
@@ -185,6 +188,9 @@ void setup() {
 
   pinMode(PIN_AEROBRAKE_ACTUATOR, OUTPUT);
   pinMode(PIN_PARACHUTE_ACTUATOR, OUTPUT);
+  Servo1.attach(Servo1Pin);
+  Servo2.attach(Servo2Pin);
+  Servo3.attach(Servo3Pin);
   analogReadResolution(12);
 
   // --- LittleFS: check for an incomplete prior flight ---
@@ -279,6 +285,36 @@ void setup() {
   lastSampleMs = lastLogMs = lastStateSaveMs = millis();
 
   Serial.println(F("=== Core 0 setup complete, entering flight loop ==="));
+  if (!haveResumableState){
+    TELEM_INTERVAL_MS = TELEM_INTERVAL_MS_Idle;
+    while (!ARMED){
+      unsigned long nowMs = millis();
+      if (nowMs - lastSampleMs >= SAMPLE_INTERVAL_MS) {
+        lastSampleMs = nowMs;
+        sampleAndIntegrate();
+        updateAltitude();
+        updateFlightState();
+        publishFlightSnapshot();
+      }
+    }
+    Telemetry t;
+    t.Time             = 0; // deciseconds
+    t.PacketCount       = (uint8_t)(0);
+    t.Mode              = 0;
+    t.Altitude          = (uint16_t)constrain(0);
+    t.VerticalVelocity  = (uint16_t)constrain(0);
+    t.GPSLat            = (int32_t)(0 * 1000000.0);
+    t.GPSLon            = (int32_t)(0 * 1000000.0);
+
+    t.HDOPSats          = 0;
+
+    t.Voltage           = (uint8_t)constrain(0);
+
+    t.EnabledItems       = 0;
+
+    TELEM_SW_SERIAL.write((uint8_t*)&t, sizeof(Telemetry));
+    TELEM_INTERVAL_MS = TELEM_INTERVAL_MS_Flight;
+  }
 }
 
 // =============================================================================
@@ -694,6 +730,35 @@ void loop1() {
   if (nowMs - lastTelemMs >= TELEM_INTERVAL_MS) {
     lastTelemMs = nowMs;
     sendTelemetry(lat, lon, sats, hdop, valid);
+  }
+  while (TELEM_SW_SERIAL.available()) {
+    String ReceivedData = TELEM_SW_SERIAL.readStringUntil('\n');
+    ReceivedData.trim();
+    Serial.println(ReceivedData);
+
+    // Checking that the data received is for updating settings or aborting
+    if (ReceivedData.startsWith("SET")) {
+      // Separating the setting name and number
+      int settingIndex = ReceivedData.substring(4, 6).toInt();
+      String newValue = ReceivedData.substring(7);
+
+      // Saying what setting was updated and what it is updated to
+      if (settingIndex >= 0 && settingIndex <= 30) {
+        String oldValue = SettingValues[settingIndex];
+        Serial.println("Updating setting " + String(SettingNames[settingIndex]) + " (" + String(settingIndex) + ") from: " + oldValue + " to: " + newValue);
+        SettingValues[settingIndex] = newValue;
+      } else {
+        Serial.println("Received SET for unknown index: " + ReceivedData);
+      }
+    } else if (ReceivedData.startsWith("ABORT")) {  // Sending an abort message if the flight is aborted since there is nothing to abort with HITL yet.
+      Serial.println("ABORT FLIGHT");
+    } else if (ReceivedData.startsWith("BEGIN_LOGGING")) {  // Sending an abort message if the flight is aborted since there is nothing to abort with HITL yet.
+      Serial.println("Logging Begun");
+    } else if (ReceivedData.startsWith("ARM")) {  // Sending an abort message if the flight is aborted since there is nothing to abort with HITL yet.
+      ARMED = true;
+    }
+
+    // Serial.write(TELEM_SW_SERIAL.read());
   }
 }
 

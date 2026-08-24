@@ -51,11 +51,12 @@
 // =======================================================================
 // TIMING
 // =======================================================================
-#define SAMPLE_INTERVAL_MS      10     // ~100 Hz IMU sampling / integration
-#define LOG_INTERVAL_MS         50     // ~20 Hz SD + Serial print
-#define TELEM_INTERVAL_MS       334    // ~3 Hz MAX telemetry rate (per spec)
-#define STATE_SAVE_INTERVAL_MS  1000   // 1 Hz LittleFS persistent-state save
-#define CALIBRATION_SAMPLES     300    // ~3 s at 100 Hz, cold-start bias capture
+#define SAMPLE_INTERVAL_MS       10     // ~100 Hz IMU sampling / integration
+#define LOG_INTERVAL_MS          50     // ~20 Hz SD + Serial print
+#define TELEM_INTERVAL_MS_Flight 334    // ~3 Hz MAX telemetry rate (per spec)
+#define TELEM_INTERVAL_MS_Idle   2000   // ~0.5 Hz for sitting on the pad
+#define STATE_SAVE_INTERVAL_MS   1000   // 1 Hz LittleFS persistent-state save
+#define CALIBRATION_SAMPLES      300    // ~3 s at 100 Hz, cold-start bias capture
 
 // =======================================================================
 // FLIGHT LOGIC THRESHOLDS
