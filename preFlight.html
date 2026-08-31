@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ground Control Station - Pre-Flight</title>
+    <link rel="stylesheet" href="PCstyle.css">
+</head>
+<body>
+    <button class = "exitBtn" id="MenuBtn"><img src="Images/MenuButton.png"></button>
+    <div class="NavMenu">
+        <div class = "NavBG"></div>
+        <div class = "NavBG_Gradient"></div>
+        <br>
+        <a href = "index.html"><button>Home<span class = "arrow">></span></button></a>
+        <br>
+        <a href = "Settings.html"><button>Settings<span class = "arrow">></span></button></a>
+        <br>
+        <a class = "active" ><button>Pre-Flight<span class = "arrow" >></span></button></a>
+        <br>
+        <a href = "Flight.html"><button>Flight<span class = "arrow">></span></button></a>
+        <br>
+        <a href = "postFlight.html"><button>Post-Flight<span class = "arrow">></span></button></a>
+        <br>
+        <a href = "Full.html"><button>Full View<span class = "arrow">></span></button></a>
+    </div>
+
+    <h1 class = "HomeTxt">Pre-Flight</h1>
+
+    <table class = "GPSMenu">
+        <tr>
+            <th colspan = "2">GPS:</th>
+        </tr>
+        <tr>
+            <td>HDOP:</td>
+            <td id = "GPS_HDOP">0.00</td>
+        </tr>
+        <tr>
+            <td>Sats:</td>
+            <td id = "GPS_Sats">0</td>
+        </tr>
+        <tr>
+            <td>Latitude:</td>
+            <td id = "GPS_Latitude">-0.000000</td>
+        </tr>
+        <tr>
+            <td>Longitude:</td>
+            <td id = "GPS_Longitude">-0.000000</td>
+        </tr>
+        <tr>
+            <td>Status:</td>
+            <td id = "GPS_Status">HOLD</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+    </table>
+
+    <table class = "DataMenu">
+        <tr>
+            <th colspan = "2">Data</th>
+        </tr>
+        <tr>
+            <td>Flight State:</td>
+            <td id = "Flight_State">PAD_IDLE</td>
+        </tr>
+        <tr>
+            <td>Altitude:</td>
+            <td id = "Altitude">0.00 m</td>
+        </tr>
+        <tr>
+            <td>SD State:</td>
+            <td id = "SD_State">DISABLED</td>
+        </tr>
+        <tr>
+            <td>Flash State:</td>
+            <td id = "Flash_State">DISABLED</td>
+        </tr>
+        <tr>
+            <td colspan="2"><button id = "BeginLogging" onclick="BeginLogging()">ARM</button></td>
+        </tr>
+        <tr>
+            <td>Status:</td>
+            <td id = "Data_Status">HOLD</td>
+        </tr>
+    </table>
+    <div style="clear:both;"></div>
+    <table class = "FlagsMenu">
+        <tr>
+            <th colspan = "2">Flags</th>
+        </tr>
+        <tr>
+            <td>ACCEL:</td>
+            <td id = "ACCEL">GO</td>
+        </tr>
+        <tr>
+            <td>GYRO:</td>
+            <td id = "GYRO">GO</td>
+        </tr>
+        <tr>
+            <td>High Range ACCEL:</td>
+            <td id = "HIGH_RANGE_ACCEL">GO</td>
+        </tr>
+        <tr>
+            <td>BARO:</td>
+            <td id = "BARO">GO</td>
+        </tr>
+        <tr>
+            <td>Status:</td>
+            <td id = "Flags_Status">HOLD</td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+        </tr>
+    </table>
+
+    <script src="../Ben-Williams-Assignment/Script.js"></script>
+</body>
+</html>

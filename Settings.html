@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ground Control Station - Settings</title>
+    <link rel="stylesheet" href="PCstyle.css">
+</head>
+<body>
+    <button class = "exitBtn" id="MenuBtn"><img src="Images/MenuButton.png"></button>
+    <div class="NavMenu">
+        <div class = "NavBG"></div>
+        <div class = "NavBG_Gradient"></div>
+        <br>
+        <a href = "index.html"><button>Home<span class = "arrow">></span></button></a>
+        <br>
+        <a class = "active" ><button>Settings<span class = "arrow">></span></button></a>
+        <br>
+        <a href = "preFlight.html"><button>Pre-Flight<span class = "arrow" >></span></button></a>
+        <br>
+        <a href = "Flight.html"><button>Flight<span class = "arrow">></span></button></a>
+        <br>
+        <a href = "postFlight.html"><button>Post-Flight<span class = "arrow">></span></button></a>
+        <br>
+        <a href = "Full.html"><button>Full View<span class = "arrow">></span></button></a>
+    </div>
+
+    <h1 class = "HomeTxt">Settings</h1>
+    <table>
+        <tr>
+            <td>Pad Idle Log Rate</td>
+            <td><input onchange = "UpdateSetting28()" id="padIdleLogRate" type = "number" min = "0" step = "0.1" placeholder = "0.0"></td>
+            <td>Hz</td>
+        </tr>
+        <tr>
+            <td>Flight Log Rate</td>
+            <td><input onchange = "UpdateSetting29()" id="flightLogRate" type = "number" min = "0" step = "0.1" placeholder = "0.0"></td>
+            <td>Hz</td>
+        </tr>
+        <tr>
+            <td>Ballistic Log Rate</td>
+            <td><input onchange = "UpdateSetting30()" id="ballisticLogRate" type = "number" min = "0" step = "0.1" placeholder = "0.0"></td>
+            <td>Hz</td>
+        </tr>
+        <tr>
+            <td>Pad Idle Transmit Rate</td>
+            <td><input onchange = "UpdateSetting2()" id="padIdleTransmitRate" type = "number" min = "0" step = "0.1" placeholder = "0.0"></td>
+            <td>Hz</td>
+        </tr>
+        <tr>
+            <td>Landed Transmit Rate</td>
+            <td><input onchange = "UpdateSetting4()" id="landedTransmitRate" type = "number" min = "0" step = "0.1" placeholder = "0.0"></td>
+            <td>Hz</td>
+        </tr>
+        <tr>
+            <td>Ballistic Transmit Rate</td>
+            <td><input onchange = "UpdateSetting3()" id="ballisticTransmitRate" type = "number" min = "0" step = "0.1" placeholder = "0.0"></td>
+            <td>Hz</td>
+        </tr>
+        <tr>
+            <td>Main Primary</td>
+            <td><select id="mainPrimaryMode" onchange = "UpdateSetting9()">
+                <option value = "2">Motor</option>
+                <option value = "1">Servo</option>
+                <option value = "0">Pyro</option>
+            </select></td>
+            <td><input onchange = "UpdateSetting16()" id="mainPrimary" type = "number" min = "0" max = "4" step = "1" placeholder = "0" class="ParachuteSelector"></td>
+        </tr>
+        <tr>
+            <td>Main Backup</td>
+            <td><select id="mainBackupMode" onchange = "UpdateSetting10()">
+                <option value = "2">None</option>
+                <option value = "1">Servo</option>
+                <option value = "0">Pyro</option>
+            </select></td>
+            <td><input onchange = "UpdateSetting17()" id="mainBackup" type = "number" min = "0" max = "4" step = "1" placeholder = "0"class="ParachuteSelector"></td>
+        </tr>
+        <tr>
+            <td>Drogue Primary</td>
+            <td><select id="droguePrimaryMode" onchange = "UpdateSetting7()">
+                <option value = "3">None</option> <!--Change setting 6 here-->
+                <option value = "2">Motor</option>
+                <option value = "1">Servo</option>
+                <option value = "0">Pyro</option>
+            </select></td>
+            <td><input onchange = "UpdateSetting14()" id="droguePrimary" type = "number" min = "0" max = "4" step = "1" placeholder = "0" class="ParachuteSelector"></td>
+        </tr>
+        <tr>
+            <td>Drogue Backup</td>
+            <td><select id="drogueBackupMode" onchange = "UpdateSetting8()">
+                <option value = "3">None</option>
+                <option value = "1">Servo</option>
+                <option value = "0">Pyro</option>
+            </select></td>
+            <td><input onchange = "UpdateSetting15()" id="drogueBackup" type = "number" min = "0" max = "4" step = "1" placeholder = "0" class="ParachuteSelector"></td>
+        </tr>
+        <tr>
+            <td>Main Deploy</td>
+            <td><input onchange = "UpdateSetting11()" id="mainDeploy" type = "number" min = "0" step = "1" placeholder = "0"></td>
+            <td>m</td>
+        </tr>
+        <tr>
+            <td>Flight State Check Time</td>
+            <td><input onchange = "UpdateSetting1()" id="flightStateCheckTime" type = "number" min = "0" step = "1" placeholder = "0" ></td>
+            <td>ms</td>
+        </tr>
+        <tr>
+            <td>Landed Check Time</td>
+            <td><input onchange = "UpdateSetting13()" id="landedCheckTime" type = "number" min = "0" step = "1" placeholder = "0" ></td>
+            <td>ms</td>
+        </tr>
+        <tr>
+            <td>Launch Accel</td>
+            <td><input onchange = "UpdateSetting0()" id="launchAccel" type = "number" min = "0" step = "0.1" placeholder = "0.0"></td>
+            <td>g</td>
+        </tr>
+        <tr>
+            <td>Burnout Accel</td>
+            <td><input onchange = "UpdateSetting5()" id="burnoutAccel" type = "number" min = "0" step = "0.1" placeholder = "0.0"></td>
+            <td>g</td>
+        </tr>
+        <tr>
+            <td>Landed Tolerance</td>
+            <td><input onchange = "UpdateSetting12()" id="landedTolerance" type = "number" min = "0" step = "0.1" placeholder = "0.0"></td>
+            <td>m</td>
+        </tr>
+        <tr>
+            <td>Saving To SD</td>
+            <td colspan = "2">
+                <select id="savingToSD" onchange = "UpdateSetting27()">
+                    <option value = "1">True</option>
+                    <option value = "0">False</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Saving To Flash</td>
+            <td colspan = "2">
+                <select id="savingToFlash" onchange = "UpdateSetting26()">
+                    <option value = "1">True</option>
+                    <option value = "0">False</option>
+                </select>
+            </td>
+        </tr>
+    </table>
+
+    <script src="../Ben-Williams-Assignment/Script.js"></script>
+</body>
+</html>

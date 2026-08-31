@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ground Control Station - Flight</title>
+    <link rel="stylesheet" href="PCstyle.css">
+</head>
+<body>
+    <button class = "exitBtn" id="MenuBtn"><img src="Images/MenuButton.png"></button>
+    <div class="NavMenu">
+        <div class = "NavBG"></div>
+        <div class = "NavBG_Gradient"></div>
+        <br>
+        <a href = "index.html"><button>Home<span class = "arrow">></span></button></a>
+        <br>
+        <a href = "Settings.html"><button>Settings<span class = "arrow">></span></button></a>
+        <br>
+        <a href = "preFlight.html"><button>Pre-Flight<span class = "arrow" >></span></button></a>
+        <br>
+        <a class = "active" ><button>Flight<span class = "arrow">></span></button></a>
+        <br>
+        <a href = "postFlight.html"><button>Post-Flight<span class = "arrow">></span></button></a>
+        <br>
+        <a href = "Full.html"><button>Full View<span class = "arrow">></span></button></a>
+    </div>
+    
+    <h1 class = "HomeTxt">Flight</h1>
+    <table class = "FlightMenu">
+        <tr>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td>Flight State:</td>
+            <td id = "Flight_State">PAD_ARMED</td>
+        </tr>
+        <tr>
+            <td>Altitude:</td>
+            <td id = "Altitude">0.00 m</td>
+        </tr>
+        <tr>
+            <td>Velocity:</td>
+            <td id = "Velocity">0.00 m/s</td>
+        </tr>
+        <tr>
+            <td>Flight Time:</td>
+            <td id = "Flight_Time">0.00 s</td>
+        </tr>
+        <tr>
+            <td>Packet Count:</td>
+            <td id = "Packet_Count">0</td>
+        </tr>
+        <tr>
+            <td>Packets Received:</td>
+            <td id = "Packets_Received">0</td>
+        </tr>
+        <tr>
+            <td colspan="2"></td>
+        </tr>
+    </table>
+    <button class = "Abort" id = "AbortBtn" onclick = "abortFlight()">ABORT</button>
+
+    
+    <script src="../Ben-Williams-Assignment/Script.js"></script>
+</body>
+</html>

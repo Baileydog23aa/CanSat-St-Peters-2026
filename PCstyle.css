@@ -1,0 +1,414 @@
+@font-face {
+    font-family: Anta;
+    src: url(./Fonts/Anta-Regular.ttf);
+}
+body{
+    font-family: Anta;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+.HomeTxt{
+    font-size: 5vw;
+}
+.HomeNav{
+    width: 100%;
+    margin-left: 0px;
+}
+.navBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Anta;
+    margin-top: 3.1333vh;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 34.0856vw;
+    text-decoration: none;
+    cursor: pointer;
+}
+.navBtn button{
+    border-radius:4vh;
+    width: 34.0856vw;
+    height: 9.4897vh;
+    font-family: Anta;
+    text-decoration: none;
+    font-size: 3.5vw;
+    border: none;
+    background-color: #C3C3C3;
+    cursor: pointer;
+    text-align: left;
+    padding-left: 2.1412vw;
+    padding-right: 2.1412vw;
+}
+.navBtn button .arrow{
+    text-align: right;
+    float: right;
+}
+
+.NavMenu{
+    background-color: #BDBDBD;
+    position: fixed;
+    top: 0;
+    left: -20vw;
+    height: 100vh;
+    font-family: Anta;
+    transition: left 0.3s ease;
+}
+.NavMenu.viewing{
+    background-color: #BDBDBD;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    font-family: Anta;
+}
+.NavBG{
+    background-color: #BDBDBD;
+    position: fixed;
+    top: 0;
+    left: -20vw;
+    height: 100vh;
+    width: 15vw;
+    z-index: -1;
+    transition: left 0.3s ease;
+}
+.NavBG.viewing{
+    background-color: #BDBDBD;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 15vw;
+    z-index: -1;
+}
+.NavBG_Gradient{
+    background: linear-gradient(to right, #BDBDBD, transparent);
+    position: fixed;
+    top: 0;
+    left: -5vw;
+    height: 100vh;
+    width: 2vw;
+    z-index: -1;
+    transition: left 0.3s ease;
+}
+.NavBG_Gradient.viewing{
+    background: linear-gradient(to right, #BDBDBD, transparent);
+    position: fixed;
+    top: 0;
+    left: 15vw;
+    height: 100vh;
+    width: 2vw;
+    z-index: -1;
+}
+.NavMenu .active button {
+    color: #707070;
+    cursor: default;
+}
+.NavMenu a button{
+    background-color: transparent;
+    border: none;
+    margin-bottom: 3.1333vh;
+    font-family: Anta;
+    font-size: 3vh;
+    width: 15vw;
+    text-align: left;
+    padding-right: 2vw;
+    cursor: pointer;
+}
+.NavMenu a{
+    text-decoration: none;
+    z-index: 1;
+    width: 90%;
+    position:relative;
+    top: 6vh;
+}
+.arrow{
+    float: right;
+    text-align: right;
+}
+.exitBtn{
+    position: fixed;
+    top: 2vh;
+    left: 2vh;
+    z-index: 100;
+    width: 4vh;
+    height: 4vh;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+@keyframes spinOpen {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(180deg); }
+}
+@keyframes spinClose {
+    from { transform: rotate(180deg); }
+    to { transform: rotate(0deg); }
+}
+.exitBtn.opening {
+    animation: spinOpen 0.1s ease-in-out forwards;
+}
+.exitBtn.closing {
+    animation: spinClose 0.1s ease-in-out forwards;
+}
+.exitBtn img{
+    width: 100%;
+    height: 100%;
+    padding: 0%;
+    margin: 0%;
+}
+
+
+table{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5vh;
+    border-collapse: collapse;
+    border-radius: 1vw;
+    overflow: hidden;
+    padding-left: 0%;
+    padding-right: 0%;
+}
+td{
+    font-size: 1.5vw;
+    justify-content: center;
+    padding-top: 0.1vw;
+    padding-bottom: 0.1vw;
+}
+td:first-child{
+    text-align: left;
+    padding-left: 0.5vw;
+}
+td:last-child{
+    padding-right: 0.5vw;
+    text-align: left;
+    padding-left: 0vw;
+}
+td:nth-child(2){
+    padding-left: 1vw;
+    text-align: right;
+}
+tr{
+    background-color: #959595;
+    height: 1.5vw;
+    line-height: 1.5vw;
+}
+tr:nth-child(even) {
+    background-color: #D4D4D4;
+}
+table select{
+    font-size: 1.25vw;
+    margin-bottom: auto;
+    margin-top: auto;
+    width: 5.7vw;
+    padding: 0;
+    font-family: Anta;
+    border-radius: 0.5vw;
+    border: none;
+}
+table input{
+    font-size: 1.25vw;
+    margin-bottom: auto;
+    margin-top: auto;
+    width: 3vw;
+    padding: 0;
+    font-family: Anta;
+    border-radius: 0.5vw;
+    border: none;
+}
+.ParachuteSelector{
+    width: 2vw;
+    padding: 0;
+    padding-left: 0.25vw;
+}
+#mainDeployMode, #drogueDeployMode{
+    width: 2.25vw;
+}
+#savingToSD, #savingToFlash{
+    width: 6.25vw;
+}
+th{
+    padding-top: 0.5vw;
+    font-size: 2.5vw;
+    font-weight: normal;
+}
+tr:has(th){
+    line-height: 2.5vw;
+}
+.GPSMenu td:last-child{
+    width: 12vw;
+}
+.FlagsMenu td:last-child{
+    width: 7vw;
+}
+.FlagsMenu td:has(button){
+    text-align: center;
+}
+.DataMenu td:has(button){
+    text-align: center;
+}
+.DataMenu td:last-child{
+    width: 12vw;
+}
+.DataMenu button{
+    margin-left:auto;
+    margin-right:auto;
+    font-size: 1.25vw;
+    margin-bottom: auto;
+    margin-top: auto;
+    width: 10vw;
+    padding: 0;
+    font-family: Anta;
+    border-radius: 0.5vw;
+    border: none;
+}
+.DataMenu{
+    width: 25vw;
+    float: right;
+    margin-right: 20vw;
+}
+.GPSMenu{
+    width: 25vw;
+    float: left;
+    margin-left: 20vw;
+}
+.FlagsMenu{
+    width: 25vw;
+}
+.FlagsMenu button{
+    margin-left:auto;
+    margin-right:auto;
+    font-size: 1.25vw;
+    margin-bottom: auto;
+    margin-top: auto;
+    width: 10vw;
+    padding: 0;
+    font-family: Anta;
+    border-radius: 0.5vw;
+    border: none;
+}
+.FlightMenu{
+    width: 50vw;
+    border-radius: 2vw;
+}
+.FlightMenu tr:first-child td{
+    height: 3.5vw;
+}
+.FlightMenu tr:last-child td{
+    height: 3.5vw;
+}
+.FlightMenu td{
+    line-height: 3.5vw;
+    font-size: 3vw;
+}
+
+.PostFlightMap{
+    border-radius: 2vw;
+    width: 75vw;
+    height: 45vw;
+}
+.PostFlightBtns{
+    background-color: transparent;
+    border: none;
+    font-family: Anta;
+    border-radius: 0;
+}
+.PostFlightBtns tr{
+    background-color: transparent;
+}
+.PostFlightBtns td{
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+.PostFlightBtns button{
+    width: 15vw;
+    height: 4vh;
+    font-size: 1.5vw;
+    border-radius: 1vw;
+    border: none;
+    background-color: #C3C3C3;
+    cursor: pointer;
+    font-family: Anta;
+}
+
+
+
+.FullMenu{
+    background-color: transparent;
+    vertical-align: top;
+}
+tr:has(.FullMap){
+    background-color: transparent !important;
+}
+.FullMenu:first-child table{
+    width: 30vw;
+    margin-right: 1.5vw;
+    margin-bottom: 2vw;
+}
+.fullMenuSection{
+    padding: 0px !important;
+}
+.FullMenu:last-child table{
+    width: 30vw;
+    margin-left: 1.5vw;
+}
+.FullMenu:nth-child(2) .DataMenu_Full{
+    margin-right: 0;
+}
+.DataMenu_Full td:has(button){
+    text-align: center;
+}
+.DataMenu_Full td:last-child{
+    width: 12vw;
+}
+.DataMenu_Full button{
+    margin-left:auto;
+    margin-right:auto;
+    font-size: 1.25vw;
+    margin-bottom: auto;
+    margin-top: auto;
+    width: 10vw;
+    padding: 0;
+    font-family: Anta;
+    border-radius: 0.5vw;
+    border: none;
+}
+.DataMenu_Full{
+    text-align: center;
+    width: 30vw;
+    margin-top: 0px;
+}
+.FullMap {
+    width: 30vw;
+    height: 20vw;
+    border-radius: 1vw;
+}
+.fullMenuSection table{
+    margin-top: 0px;
+}
+
+#connectBluetooth button, #connectSerial button{
+    text-align: center; 
+    font-size: 2.5vw;
+}
+
+.Abort{
+    width: 30vw;
+    height: 5vw;
+    margin-top: 2vh;
+    font-size: 3.5vw;
+    border-radius: 2.5vw;
+    background-color: Red;
+    border: 0.2vw solid Black;
+    cursor: pointer;
+    font-family: Anta;
+}
+.Abort:hover{
+    background-color: rgb(228, 0, 0);
+}
+.Abort:active{
+    background-color: #b30000;
+}

@@ -1,0 +1,12 @@
+﻿Designator,Footprint,Quantity,Value,LCSC Part #
+"A1, B1",SW_PUSH_6mm,2,SW_Push_Open_Dual,
+BATT1,"TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal",1,Screw_Terminal_01x02,
+BZ1,Buzzer_12x9.5RM7.6,1,Buzzer,
+C1,0805,1,10u,
+C2,0805,1,22u,
+J1,PinHeader_1x07_P2.54mm_Vertical,1,Conn_01x07_Socket,
+J2,PinSocket_1x04_P2.54mm_Vertical,1,Conn_01x04_Socket,
+J3,PinHeader_1x05_P2.54mm_Vertical,1,Conn_01x05_Pin,
+"R1, R2",0805,2,10k,
+U1,Board,1,ESP32-WROOM32U,
+U2,SOT-89-3,1,AMS1117-5.0,
