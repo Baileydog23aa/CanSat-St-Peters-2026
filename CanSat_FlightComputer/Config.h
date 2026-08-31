@@ -19,8 +19,8 @@
 
 // --- Telemetry radio: E32-433T-33D, transparent mode, SoftwareSerial on Core 1 ---
 #define TELEM_BAUD           9600
-#define TELEM_SW_RX_PIN      2     // adjust
-#define TELEM_SW_TX_PIN      3     // adjust
+#define TELEM_SW_RX_PIN      3     // adjust
+#define TELEM_SW_TX_PIN      2     // adjust
 #define PIN_E32_M0           -1    // -1 if M0 is hard-tied to GND on the PCB
 #define PIN_E32_M1           -1    // -1 if M1 is hard-tied to GND on the PCB
 

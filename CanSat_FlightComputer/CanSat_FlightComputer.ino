@@ -171,13 +171,16 @@ unsigned long lastMicros = 0;
 bool resumedFlight = false;
 int TELEM_INTERVAL_MS = TELEM_INTERVAL_MS_Flight;
 
-bool ARMED = false
+bool ARMED = false;
+float verticalSpeedBaro = 0.0f;
+unsigned long lastAltUs = 0;
 
 // =============================================================================
 // CORE 0 SETUP: sensors, integration, SD/LittleFS, flight logic
 // =============================================================================
 void setup() {
   Serial.begin(DEBUG_BAUD);
+  // while (!Serial);
   delay(200);
   Serial.println(F("=== CANSAT 2026 Flight Computer Boot (Core 0) ==="));
 
@@ -192,6 +195,8 @@ void setup() {
   Servo2.attach(Servo2Pin);
   Servo3.attach(Servo3Pin);
   analogReadResolution(12);
+
+  Servo1.write(170);
 
   // --- LittleFS: check for an incomplete prior flight ---
   flashOK = LittleFS.begin();
@@ -234,6 +239,7 @@ void setup() {
     // to flight logic with the saved ranges, biases, and integrator state.
     // ---------------------------------------------------------------------
     resumedFlight = true;
+    ARMED = true;
     Serial.println(F(">>> Incomplete flight detected in LittleFS - RESUMING without recalibration <<<"));
 
     accRangeIndex        = pstate.accRangeIndex;
@@ -282,6 +288,7 @@ void setup() {
   g_bootReady = true;
 
   lastMicros = micros();
+lastAltUs = lastMicros;
   lastSampleMs = lastLogMs = lastStateSaveMs = millis();
 
   Serial.println(F("=== Core 0 setup complete, entering flight loop ==="));
@@ -293,22 +300,29 @@ void setup() {
         lastSampleMs = nowMs;
         sampleAndIntegrate();
         updateAltitude();
-        updateFlightState();
         publishFlightSnapshot();
       }
     }
+    Serial.println("Arming CanSat");
+
+    velX = velY = velZ = 0.0f;
+    dispX = dispY = dispZ = 0.0f;
+    altitudeAGL = 0.0f;
+    prevAltitudeAGL = 0.0f;
+    maxAltitudeM = 0.0f;
+    
     Telemetry t;
     t.Time             = 0; // deciseconds
     t.PacketCount       = (uint8_t)(0);
     t.Mode              = 0;
-    t.Altitude          = (uint16_t)constrain(0);
-    t.VerticalVelocity  = (uint16_t)constrain(0);
+    t.Altitude          = 0;
+    t.VerticalVelocity  = 0;
     t.GPSLat            = (int32_t)(0 * 1000000.0);
     t.GPSLon            = (int32_t)(0 * 1000000.0);
 
     t.HDOPSats          = 0;
 
-    t.Voltage           = (uint8_t)constrain(0);
+    t.Voltage           = 0;
 
     t.EnabledItems       = 0;
 
@@ -491,12 +505,22 @@ void sampleAndIntegrate() {
 // =============================================================================
 // ALTITUDE (barometer, primary source, Core 0)
 // =============================================================================
-void updateAltitude() {
+void updateAltitude() {  
   if (!baroOK) return;
+
+  unsigned long nowUs = micros();
+  float dt = (nowUs - lastAltUs) / 1000000.0f;
+  lastAltUs = nowUs;
+
   prevAltitudeAGL = altitudeAGL;
   float pressurePa = readBaroPressurePa();
   altitudeAGL = 44330.0f * (1.0f - powf(pressurePa / groundPressurePa, 0.19026f));
   if (altitudeAGL > maxAltitudeM) maxAltitudeM = altitudeAGL;
+
+  if (dt > 0 && dt < 1.0f) {
+    float rawRate = (altitudeAGL - prevAltitudeAGL) / dt;
+    verticalSpeedBaro = 0.8f * verticalSpeedBaro + 0.2f * rawRate; // light low-pass
+  }
 }
 
 // =============================================================================
@@ -540,7 +564,7 @@ void updateFlightState() {
       break;
 
     case STATE_DESCENT_PARACHUTE:
-      if (altitudeAGL < LANDED_ALT_THRESHOLD_M && verticalSpeedEst < LANDED_VVEL_THRESHOLD_MS) {
+      if (altitudeAGL < LANDED_ALT_THRESHOLD_M/* && fabsf(verticalSpeedBaro) < LANDED_VVEL_THRESHOLD_MS*/) {
         calmSampleCount++;
       } else {
         calmSampleCount = 0;
@@ -553,6 +577,7 @@ void updateFlightState() {
       break;
 
     case STATE_LANDED:
+      TELEM_INTERVAL_MS = TELEM_INTERVAL_MS_Idle;
       // Idle. Could add periodic audio beacon trigger here (C4 requirement).
       break;
   }
@@ -574,6 +599,7 @@ void deployAerobrake() {
 void deployParachute() {
   // TODO: implement your main parachute deployment mechanism here.
   // e.g. digitalWrite(PIN_PARACHUTE_ACTUATOR, HIGH);
+  Servo1.write(90);
 }
 
 // =============================================================================
@@ -734,22 +760,10 @@ void loop1() {
   while (TELEM_SW_SERIAL.available()) {
     String ReceivedData = TELEM_SW_SERIAL.readStringUntil('\n');
     ReceivedData.trim();
-    Serial.println(ReceivedData);
+    //Serial.println(ReceivedData);
 
     // Checking that the data received is for updating settings or aborting
     if (ReceivedData.startsWith("SET")) {
-      // Separating the setting name and number
-      int settingIndex = ReceivedData.substring(4, 6).toInt();
-      String newValue = ReceivedData.substring(7);
-
-      // Saying what setting was updated and what it is updated to
-      if (settingIndex >= 0 && settingIndex <= 30) {
-        String oldValue = SettingValues[settingIndex];
-        Serial.println("Updating setting " + String(SettingNames[settingIndex]) + " (" + String(settingIndex) + ") from: " + oldValue + " to: " + newValue);
-        SettingValues[settingIndex] = newValue;
-      } else {
-        Serial.println("Received SET for unknown index: " + ReceivedData);
-      }
     } else if (ReceivedData.startsWith("ABORT")) {  // Sending an abort message if the flight is aborted since there is nothing to abort with HITL yet.
       Serial.println("ABORT FLIGHT");
     } else if (ReceivedData.startsWith("BEGIN_LOGGING")) {  // Sending an abort message if the flight is aborted since there is nothing to abort with HITL yet.
