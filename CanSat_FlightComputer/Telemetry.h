@@ -36,10 +36,11 @@ enum EnabledBits : uint8_t {
 
 enum FlightState : uint8_t {
   STATE_LAUNCH_WAIT       = 0,
-  STATE_ASCENT            = 1,
-  STATE_DESCENT_AEROBRAKE = 2,
-  STATE_DESCENT_PARACHUTE = 3,
-  STATE_LANDED            = 4
+  STATE_Armed             = 1,
+  STATE_ASCENT            = 2,
+  STATE_DESCENT_AEROBRAKE = 3,
+  STATE_DESCENT_PARACHUTE = 4,
+  STATE_LANDED            = 5
 };
 
 inline const char* flightStateName(uint8_t s) {

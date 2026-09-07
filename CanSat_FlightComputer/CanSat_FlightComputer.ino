@@ -328,6 +328,8 @@ lastAltUs = lastMicros;
 
     TELEM_SW_SERIAL.write((uint8_t*)&t, sizeof(Telemetry));
     TELEM_INTERVAL_MS = TELEM_INTERVAL_MS_Flight;
+    
+    flightState = STATE_Armed;
   }
 }
 
@@ -529,8 +531,8 @@ void updateAltitude() {
 void updateFlightState() {
   switch (flightState) {
 
-    case STATE_LAUNCH_WAIT:
-      if (altitudeAGL - prevAltitudeAGL > 0 && verticalSpeedEst > LIFTOFF_VVEL_THRESHOLD_MS) {
+    case STATE_Armed:
+      if (altitudeAGL - (prevAltitudeAGL+0.5) > 0 && verticalSpeedEst > LIFTOFF_VVEL_THRESHOLD_MS) {
         flightState = STATE_ASCENT;
         Serial.println(F("[STATE] -> ASCENT"));
       }

@@ -296,29 +296,19 @@ function update() {
 
     try {
         Flight_State = document.getElementById('Flight_State');
-        if (flightState == 0) {
+        if (flightState == -1) {
             Flight_State.innerHTML = "STARTUP";
-        } else if (flightState == 1) {
+        } else if (flightState == 0) {
             Flight_State.innerHTML = "PAD_IDLE";
-        } else if (flightState == 2) {
+        } else if (flightState == 1) {
             Flight_State.innerHTML = "PAD_ARMED";
-        } else if (flightState == 3) {
+        } else if (flightState == 2) {
             Flight_State.innerHTML = "ASCENT";
-        } else if (flightState == 4) {
-            Flight_State.innerHTML = "BURNOUT";
-        } else if (flightState == 5) {
-            Flight_State.innerHTML = "DESCENT";
-        } else if (flightState == 6) {
-            Flight_State.innerHTML = "DROUGE_DEPLOY";
-        } else if (flightState == 7) {
+        } else if (flightState == 3) {
             Flight_State.innerHTML = "DROUGE";
-        } else if (flightState == 8) {
-            Flight_State.innerHTML = "MAIN_DEPLOY";
-        } else if (flightState == 9) {
+        } else if (flightState == 4) {
             Flight_State.innerHTML = "MAIN";
-        } else if (flightState == 10) {
-            Flight_State.innerHTML = "BALLISTIC";
-        } else if (flightState == 11) {
+        } else if (flightState == 5) {
             Flight_State.innerHTML = "LANDED";
         }
 
@@ -455,7 +445,7 @@ function update() {
 
     try {
         Flags_State = document.getElementById('Flags_Status');
-        if (ADXL375Enabled == true && BMI088AccelEnabled == true && BMI088GYROEnabled == true && MS5611Enabled == true) {
+        if (BMI088AccelEnabled == true && BMI088GYROEnabled == true && MS5611Enabled == true) {
             Flags_State.innerHTML = "GO";
         } else {
             Flags_State.innerHTML = "HOLD";
